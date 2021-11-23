@@ -1,0 +1,36 @@
+kind: ImageStream
+apiVersion: image.openshift.io/v1
+metadata:
+  name: artemis
+  annotations:
+    openshift.io/image.insecureRepository: "true"
+  labels:
+    app: artemis
+    app.kubernetes.io/component: artemis
+    app.kubernetes.io/instance: artemis
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+    - name: '7.5'
+      annotations:
+        openshift.io/imported-from: 'registry.redhat.io/amq7/amq-broker:7.5'
+      from:
+        kind: DockerImage
+        name: '172.18.28.125:5000/digital-lending/artemis:7.5'
+      generation: 2
+      importPolicy: 
+        insecure: true
+      referencePolicy:
+        type: Local
+status:
+  dockerImageRepository: '172.18.28.125:5000/digital-lending/artemis'
+  tags:
+    - tag: '7.5'
+      items:
+        - created: '2021-11-22T07:19:22Z'
+          dockerImageReference: >-
+            172.18.28.125:5000/digital-lending/artemis@sha256:ba5273b390a4762c21f005fdc92a837680417250dcd5e6d9d3c8f776e9cc372e
+          image: >-
+            sha256:ba5273b390a4762c21f005fdc92a837680417250dcd5e6d9d3c8f776e9cc372e
+          generation: 2

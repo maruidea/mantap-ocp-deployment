@@ -1,0 +1,30 @@
+version: '2.1'
+services:
+    artemis:
+        image: registry.redhat.io/amq7/amq-broker:7.5
+        
+        restart: always
+        container_name: artemis
+    
+        volumes:
+            - artemis_data:/var/lib/artemis/data
+            - artemis_tmp:/var/lib/artemis/tmp
+
+        environment:
+            - AMQ_USER=admin
+            - AMQ_PASSWORD=admin
+            - TZ=Asia/Jakarta
+
+        ports:
+            - 5445:5445
+            - 5672:5672
+            - 1883:1883
+            - 8161:8161
+            - 61616:61616
+            - 61613:61613
+            - 61614:61614
+                      
+volumes:
+    artemis_data: {}
+    artemis_tmp: {}
+  
