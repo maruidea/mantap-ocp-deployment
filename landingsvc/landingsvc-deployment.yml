@@ -49,12 +49,12 @@ parameters:
   - name: MSSQL_USER
     displayName: MSSQL Connection Username
     description: Username for MSSQL user that will be used for accessing the database.
-    value: sa
+    value: usr_digilen
     required: true
   - name: MSSQL_PASSWORD
     displayName: MSSQL Connection Password
     description: Password for the MSSQL connection user.
-    value: nop4ssword1!
+    value: P@ssw0rd
     required: true
   - name: EXT_MSSQL_USER
     displayName: MSSQL Connection Username
@@ -103,9 +103,12 @@ objects:
             app: ${APPLICATION_NAME}
         spec:
           imagePullSecrets:
+              # - name: bastion-registry # TODO Adjust accordingly
               - name: docker # TODO Adjust accordingly
           containers:
             - name: ${APPLICATION_NAME}
+              # image: 172.18.25.125:5000/digital-lending/landingsvc:latest # TODO Adjust accordingly
+              # image: 172.18.25.126:5000/digital-lending/landingsvc:latest # TODO Adjust accordingly
               image: docker.io/besmartdevops/landingsvc # TODO Adjust accordingly
               imagePullPolicy: Always
               env:
@@ -121,7 +124,7 @@ objects:
                       name: ${REG_SECRET_REF}
                       key: registry-admin-password
                 - name: SPRING_DATASOURCE_URL
-                  value: jdbc:sqlserver://108.160.135.163:1433;database=landingsvc # TODO Adjust accordingly
+                  value: jdbc:sqlserver://172.18.28.11:1433;database=DB_UTLITY_DIGILEN # TODO Adjust accordingly
                 - name: SPRING_DATASOURCE_USERNAME
                   valueFrom:
                     secretKeyRef:
@@ -133,31 +136,24 @@ objects:
                       name: ${SECRET_REF}
                       key: database-password
                 - name: DB_CORE_DATASOURCE_URL
-                  # TODO Adjust accordingly
-                  # value: jdbc:sqlserver://172.18.28.11:1433;database=DB_UTLITY_DIGILEN
-                  value: jdbc:sqlserver://108.160.135.163:1433;database=landingsvc
+                  value: jdbc:sqlserver://172.18.28.11:1433;database=DB_UTLITY_DIGILEN # TODO Adjust accordingly
                 - name: DB_CORE_DATASOURCE_USERNAME
                   valueFrom:
                     secretKeyRef:
-                      # TODO Adjust accordingly
-                      # name: ${EXT_SECRET_REF}
-                      name: ${SECRET_REF}
+                      name: ${EXT_SECRET_REF}
                       key: database-user
                 - name: DB_CORE_DATASOURCE_PASSWORD
                   valueFrom:
                     secretKeyRef:
-                      # TODO Adjust accordingly
-                      # name: ${EXT_SECRET_REF}
+                      name: ${EXT_SECRET_REF}
                       name: ${SECRET_REF}
                       key: database-password
                 - name: SPRING_ELASTICSEARCH_REST_URIS
                   value: http://${APPLICATION_NAME}-elasticsearch:9200
                 - name: SPRING_LIQUIBASE_URL
-                  # TODO Adjust accordingly
-                  # value: jdbc:sqlserver://172.18.28.11:1433;database=DB_UTLITY_DIGILEN
-                  value: jdbc:sqlserver://108.160.135.163:1433;database=landingsvc
+                  value: jdbc:sqlserver://172.18.28.11:1433;database=DB_UTLITY_DIGILEN
                 - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI
-                  value: http://keycloak:9080/auth/realms/jhipster # TODO Adjust accordingly
+                  value: http://172.18.28.10:9080/auth/realms/jhipster # TODO Adjust accordingly
                 - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID
                   value: web_app
                 - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET
@@ -169,15 +165,15 @@ objects:
                 - name: SPRING_ARTEMIS_HOST
                   value: artemis # TODO Adjust accordingy
                 - name: SPRING_ARTEMIS_PORT
-                  value: 61616
+                  value: "61616"
                 - name: SPRING_JPA_DATABASE_PLATFORM
                   value: org.hibernate.dialect.SQLServer2012Dialect
                 - name: SPRING_JPA_PROPERTIES_HIBERNATE_DDL_AUTO
                   value: update
                 - name: SPRING_JPA_SHOW_SQL
-                  value: false
+                  value: "false"
                 - name: SPRING_JPA_GENERATE_DDL
-                  value: true
+                  value: "true"
               ports:
                 - name: http
                   containerPort: ${{APP_PORT}}
