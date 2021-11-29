@@ -175,13 +175,13 @@ objects:
                 - name: SPRING_JPA_GENERATE_DDL
                   value: "true"
                 - name: FTP_SERVER
-                  value: vm1.atiila.id
+                  value: 172.18.28.26
                 - name: FTP_PORT
-                  value: "21"
+                  value: "2826"
                 - name: FTP_USERNAME
-                  value: testuser
+                  value: anonymous
                 - name: FTP_PASSWORD
-                  value: nop4ssword@2021
+                  value:
                 - name: DISBURSEMENT_FTPSOURCE_SERVER
                   value: vm1.atiila.id
                 - name: DISBURSEMENT_FTPSOURCE_PORT
@@ -194,16 +194,16 @@ objects:
                   value: /tmp/demo/dirc
                 - name: DISBURSEMENT_FTPSOURCE_PATHBACKUP
                   value: /tmp/demo/backup
-                - name: DISBURSEMENT_FTPSOURCE_LISTFILES
-                  value:
+                #- name: DISBURSEMENT_FTPSOURCE_LISTFILES
+                #  value:
                 - name: DISBURSEMENT_FTPDESTINATION_SERVER
-                  value: localhost
+                  value: 172.18.28.26
                 - name: DISBURSEMENT_FTPDESTINATION_PORT
-                  value: "21"
+                  value: "2826"
                 - name: DISBURSEMENT_FTPDESTINATION_USERNAME
-                  value: one
+                  value: anonymous
                 - name: DISBURSEMENT_FTPDESTINATION_PASSWORD
-                  value: "1234"
+                  value:
                 - name: DISBURSEMENT_FTPDESTINATION_PATH
                   value: /upload
               ports:
